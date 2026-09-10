@@ -8,7 +8,6 @@
 
 <style>
 *{box-sizing:border-box}
-
 html{scroll-behavior:smooth}
 
 body{
@@ -272,15 +271,18 @@ color:#c184ff;
 
 .whatsapp-button{
 display:block;
+width:100%;
 margin-top:15px;
 padding:14px;
 background:#25D366;
 color:white;
 text-align:center;
 text-decoration:none;
+border:none;
 border-radius:10px;
 font-weight:bold;
 font-size:16px;
+cursor:pointer;
 }
 
 @media(max-width:480px){
@@ -347,30 +349,11 @@ id="diamondList">
 
 <h3>Ringkasan Order</h3>
 
-<p>
-User ID:
-<span id="summaryUser">-</span>
-</p>
-
-<p>
-Zone ID:
-<span id="summaryZone">-</span>
-</p>
-
-<p>
-Produk:
-<span id="summaryProduct">-</span>
-</p>
-
-<p>
-Harga:
-<span id="summaryPrice">-</span>
-</p>
-
-<p>
-Pembayaran:
-<span id="summaryPayment">-</span>
-</p>
+<p>User ID: <span id="summaryUser">-</span></p>
+<p>Zone ID: <span id="summaryZone">-</span></p>
+<p>Produk: <span id="summaryProduct">-</span></p>
+<p>Harga: <span id="summaryPrice">-</span></p>
+<p>Pembayaran: <span id="summaryPayment">-</span></p>
 
 </div>
 
@@ -437,25 +420,13 @@ id="confirmation">
 
 <h3>✅ Pengesahan Pesanan</h3>
 
-<p>
-User ID:
-<strong id="confirmUser">-</strong>
-</p>
+<p>User ID: <strong id="confirmUser">-</strong></p>
 
-<p>
-Zone ID:
-<strong id="confirmZone">-</strong>
-</p>
+<p>Zone ID: <strong id="confirmZone">-</strong></p>
 
-<p>
-Produk:
-<strong id="confirmProduct">-</strong>
-</p>
+<p>Produk: <strong id="confirmProduct">-</strong></p>
 
-<p>
-Kaedah Pembayaran:
-<strong id="confirmPayment">-</strong>
-</p>
+<p>Kaedah Pembayaran: <strong id="confirmPayment">-</strong></p>
 
 <p>Jumlah Bayaran:</p>
 
@@ -501,8 +472,6 @@ Sila tunggu arahan pembayaran.
 
 </div>
 
-<!-- NOTIS MANUAL -->
-
 <div class="manual-notice">
 
 <h3>⚠️ PEMBAYARAN MANUAL SEMENTARA</h3>
@@ -520,14 +489,13 @@ berkaitan pesanan, sila hubungi
 <strong>GABA STORE melalui WhatsApp.</strong>
 </p>
 
-<a
+<button
 class="whatsapp-button"
-href="https://wa.me/601119673523"
-target="_blank">
+onclick="hubungiWhatsApp()">
 
 💬 HUBUNGI GABA STORE
 
-</a>
+</button>
 
 </div>
 
@@ -541,6 +509,10 @@ const scriptURL =
 
 const tngURL =
 "https://payment.tngdigital.com.my/sc/bDLowVOndX";
+
+const whatsappNumber =
+"601119673523";
+
 
 const games = {
 
@@ -589,6 +561,7 @@ items:[
 }
 
 };
+
 
 let currentGame="ml";
 
@@ -884,6 +857,90 @@ document.getElementById("paymentBox")
 behavior:"smooth",
 block:"center"
 });
+
+}
+
+
+/* WHATSAPP SUPPORT */
+
+function hubungiWhatsApp(){
+
+const pilihan = prompt(
+
+"🛠️ APA MASALAH YANG ANDA HADAPI?\n\n"+
+
+"1️⃣ Diamond belum masuk\n"+
+
+"2️⃣ Masalah pembayaran\n"+
+
+"3️⃣ Pesanan bermasalah\n"+
+
+"4️⃣ Salah User ID / Zone ID\n"+
+
+"5️⃣ Masalah lain\n\n"+
+
+"Taip nombor 1 - 5:"
+
+);
+
+let mesej="";
+
+
+if(pilihan==="1"){
+
+mesej=
+"Hi GABA STORE, saya menghadapi masalah: Diamond belum masuk.";
+
+}
+
+else if(pilihan==="2"){
+
+mesej=
+"Hi GABA STORE, saya menghadapi masalah pembayaran.";
+
+}
+
+else if(pilihan==="3"){
+
+mesej=
+"Hi GABA STORE, saya menghadapi masalah dengan pesanan saya.";
+
+}
+
+else if(pilihan==="4"){
+
+mesej=
+"Hi GABA STORE, saya tersalah masukkan User ID / Zone ID.";
+
+}
+
+else if(pilihan==="5"){
+
+mesej=
+"Hi GABA STORE, saya mempunyai masalah lain.";
+
+}
+
+else{
+
+alert(
+"Sila pilih nombor 1 hingga 5."
+);
+
+return;
+
+}
+
+
+const whatsappURL =
+"https://wa.me/"+
+whatsappNumber+
+"?text="+
+encodeURIComponent(mesej);
+
+
+window.location.href =
+whatsappURL;
 
 }
 
