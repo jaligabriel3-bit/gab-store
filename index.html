@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GABA STORE</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #080812;
+  color: white;
+}
+
+header {
+  text-align: center;
+  padding: 25px 15px;
+  background: #0d0d1c;
+  border-bottom: 1px solid #7b2cff;
+}
+
+header h1 {
+  margin: 0;
+  color: #b56cff;
+  font-size: 30px;
+}
+
+header p {
+  margin: 7px 0 0;
+  color: #aaa;
+}
+
+.container {
+  width: 92%;
+  max-width: 700px;
+  margin: 25px auto;
+}
+
+.game-box {
+  background: #111122;
+  border: 1px solid #6330a8;
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.game-box h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.pilih {
+  text-decoration: none;
+  background: #7b2cff;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.order-box {
+  background: #0f0f20;
+  border: 1px solid #7b2cff;
+  border-radius: 14px;
+  padding: 20px;
+  margin-top: 25px;
+}
+
+.order-box h2 {
+  margin-top: 0;
+  color: #c184ff;
+}
+
+.input-label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 6px;
+  color: #ccc;
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 13px;
+  border-radius: 10px;
+  border: 1px solid #444;
+  background: #181827;
+  color: white;
+  font-size: 16px;
+  outline: none;
+}
+
+.diamond-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.diamond {
+  position: relative;
+}
+
+.diamond input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+
+.diamond-card {
+  display: block;
+  background: #151527;
+  border: 1px solid #393955;
+  border-radius: 10px;
+  padding: 14px 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.diamond-card b {
+  display: block;
+  font-size: 15px;
+}
+
+.price {
+  margin-top: 6px;
+  color: #00eaff;
+  font-weight: bold;
+}
+
+.diamond input:checked + .diamond-card {
+  border-color: #b56cff;
+  background: #24143d;
+  box-shadow: 0 0 10px rgba(181,108,255,0.5);
+}
+
+.summary {
+  margin-top: 25px;
+  padding: 18px;
+  background: #151527;
+  border: 1px solid #6330a8;
+  border-radius: 12px;
+}
+
+.summary h3,
+.payment h3,
+.confirmation h3,
+.payment-box h3 {
+  color: #c184ff;
+  margin-top: 0;
+}
+
+.summary p {
+  margin: 10px 0;
+  color: #ccc;
+}
+
+.summary span {
+  color: white;
+  font-weight: bold;
+}
+
+.payment {
+  margin-top: 20px;
+}
+
+.payment-option {
+  display: block;
+  position: relative;
+  margin-top: 10px;
+}
+
+.payment-option input {
+  position: absolute;
+  opacity: 0;
+}
+
+.payment-card {
+  display: block;
+  padding: 15px;
+  background: #151527;
+  border: 1px solid #393955;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+}
+
+.payment-card span {
+  color: #aaa;
+  font-size: 13px;
+}
+
+.payment-option input:checked + .payment-card {
+  border-color: #b56cff;
+  background: #24143d;
+  box-shadow: 0 0 10px rgba(181,108,255,0.4);
+}
+
+.order-button,
+.pay-button {
+  width: 100%;
+  margin-top: 25px;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background: #7b2cff;
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.confirmation {
+  display: none;
+  margin-top: 25px;
+  padding: 20px;
+  background: #151527;
+  border: 1px solid #7b2cff;
+  border-radius: 12px;
+}
+
+.confirmation p {
+  color: #ccc;
+  margin: 11px 0;
+}
+
+.confirmation strong {
+  color: white;
+}
+
+.confirmation .total {
+  color: #00eaff;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.payment-box {
+  display: none;
+  margin-top: 25px;
+  padding: 20px;
+  background: #151527;
+  border: 1px solid #00eaff;
+  border-radius: 12px;
+}
+
+.payment-box p {
+  color: #ccc;
+  line-height: 1.5;
+}
+
+.payment-amount {
+  font-size: 25px;
+  font-weight: bold;
+  color: #00eaff;
+  margin: 15px 0;
+}
+
+.payment-note {
+  padding: 14px;
+  border-radius: 10px;
+  background: #24143d;
+  border: 1px solid #6330a8;
+  margin-top: 15px;
+}
+
+@media (max-width: 480px) {
+  .diamond-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>GABA STORE</h1>
+  <p>Game Top Up & Services</p>
+</header>
+
+<div class="container">
+
+  <div class="game-box">
+    <h2>Mobile Legends</h2>
+    <a href="#orderBox" class="pilih">PILIH</a>
+  </div>
+
+  <div class="game-box">
+    <h2>Magic Chess: Go Go</h2>
+    <a href="#orderBox" class="pilih">PILIH</a>
+  </div>
+
+  <div class="order-box" id="orderBox">
+
+    <h2>Mobile Legends</h2>
+    <p>🇲🇾 Pricelist ID Malaysia</p>
+
+    <label class="input-label">User ID</label>
+    <input id="userId" type="number" placeholder="Masukkan User ID">
+
+    <label class="input-label">Zone ID</label>
+    <input id="zoneId" type="number" placeholder="Masukkan Zone ID">
+
+    <div class="diamond-list">
+
+      <label class="diamond">
+        <input type="radio" name="diamond" data-product="140 Diamond" data-price="RM 11.00">
+        <span class="diamond-card"><b>140 Diamond</b><div class="price">RM 11.00</div></span>
+      </label>
+
+      <label class="diamond">
+        <input type="radio" name="diamond" data-product="284 Diamond" data-price="RM 22.00">
+        <span class="diamond-card"><b>284 Diamond</b><div class="price">RM 22.00</div></span>
+      </label>
+
+      <label class="diamond">
+        <input type="radio" name="diamond" data-product="355 Diamond" data-price="RM 26.00">
+        <span class="diamond-card"><b>355 Diamond</b><div class="price">RM 26.00</div></span>
+      </label>
+
+      <label class="diamond">
+        <input type="radio" name="diamond" data-product="429 Diamond" data-price="RM 31.00">
+        <span class="diamond-card"><b>429 Diamond</b><div class="price">RM 31.00</div></span>
+      </label>
+
+      <label class="diamond">
+        <input type="radio" name="diamond" data-product="513 Diamond" data-price="RM 37.00">
+        <span class="diamond-card"><b>513 Diamond</b><div class="price">RM 37.00</div></span>
+      </label>
+
+      <label class="diamond">
+        <input type="radio" name="diamond" data-product="716 Diamond" data-price="RM 51.00">
+        <span class="diamond-card"><b>716 Diamond</b><div class="price">RM 51.00</div></span>
+      </label>
+
+      <label class="diamond">
+        <input type="radio" name="diamond" data-product="870 Diamond" data-price="RM 62.00">
+        <span class="diamond-card"><b>870 Diamond</b><div class="price">RM 62.00</div></span>
+      </label>
+
+      <label class="diamond">
+        <input type="radio" name="diamond" data-product="1071 Diamond" data-price="RM 76.00">
+        <span class="diamond-card"><b>1071 Diamond</b><div class="price">RM 76.00</div></span>
+      </label>
+
+      <label class="diamond">
+        <input type="radio" name="diamond" data-product="1446 Diamond" data-price="RM 101.00">
+        <span class="diamond-card"><b>1446 Diamond</b><div class="price">RM 101.00</div></span>
+      </label>
+
+      <label class="diamond">
+        <input type="radio" name="diamond" data-product="1530 Diamond" data-price="RM 107.00">
+        <span class="diamond-card"><b>1530 Diamond</b><div class="price">RM 107.00</div></span>
+      </label>
+
+      <label class="diamond">
+        <input type="radio" name="diamond" data-product="1712 Diamond" data-price="RM 121.00">
+        <span class="diamond-card"><b>1712 Diamond</b><div class="price">RM 121.00</div></span>
+      </label>
+
+      <label class="diamond">
+        <input type="radio" name="diamond" data-product="2015 Diamond" data-price="RM 141.00">
+        <span class="diamond-card"><b>2015 Diamond</b><div class="price">RM 141.00</div></span>
+      </label>
+
+      <label class="diamond">
+        <input type="radio" name="diamond" data-product="2302 Diamond" data-price="RM 161.00">
+        <span class="diamond-card"><b>2302 Diamond</b><div class="price">RM 161.00</div></span>
+      </label>
+
+      <label class="diamond">
+        <input type="radio" name="diamond" data-product="2976 Diamond" data-price="RM 202.00">
+        <span class="diamond-card"><b>2976 Diamond</b><div class="price">RM 202.00</div></span>
+      </label>
+
+      <label class="diamond">
+        <input type="radio" name="diamond" data-product="3345 Diamond" data-price="RM 228.00">
+        <span class="diamond-card"><b>3345 Diamond</b><div class="price">RM 228.00</div></span>
+      </label>
+
+      <label class="diamond">
+        <input type="radio" name="diamond" data-product="3517 Diamond" data-price="RM 240.00">
+        <span class="diamond-card"><b>3517 Diamond</b><div class="price">RM 240.00</div></span>
+      </label>
+
+      <label class="diamond">
+        <input type="radio" name="diamond" data-product="4047 Diamond" data-price="RM 277.00">
+        <span class="diamond-card"><b>4047 Diamond</b><div class="price">RM 277.00</div></span>
+      </label>
+
+      <label class="diamond">
+        <input type="radio" name="diamond" data-product="1X WDP" data-price="RM 9.00">
+        <span class="diamond-card"><b>1X WDP</b><div class="price">RM 9.00</div></span>
+      </label>
+
+    </div>
+
+    <div class="summary">
+      <h3>Ringkasan Order</h3>
+      <p>User ID: <span id="summaryUser">-</span></p>
+      <p>Zone ID: <span id="summaryZone">-</span></p>
+      <p>Produk: <span id="summaryProduct">-</span></p>
+      <p>Harga: <span id="summaryPrice">-</span></p>
+      <p>Pembayaran: <span id="summaryPayment">-</span></p>
+    </div>
+
+    <div class="payment">
+
+      <h3>Kaedah Pembayaran</h3>
+
+      <label class="payment-option">
+        <input type="radio" name="payment" value="QR Payment">
+        <span class="payment-card">
+          💳 QR Payment<br>
+          <span>Bayaran melalui QR</span>
+        </span>
+      </label>
+
+      <label class="payment-option">
+        <input type="radio" name="payment" value="Online Banking">
+        <span class="payment-card">
+          🏦 Online Banking<br>
+          <span>Bayaran melalui perbankan online</span>
+        </span>
+      </label>
+
+      <label class="payment-option">
+        <input type="radio" name="payment" value="E-Wallet">
+        <span class="payment-card">
+          📱 E-Wallet<br>
+          <span>Bayaran melalui e-wallet</span>
+        </span>
+      </label>
+
+    </div>
+
+    <button class="order-button" onclick="buatPesanan()">
+      BUAT PESANAN
+    </button>
+
+    <div class="confirmation" id="confirmation">
+
+      <h3>✅ Pengesahan Pesanan</h3>
+
+      <p>User ID: <strong id="confirmUser">-</strong></p>
+      <p>Zone ID: <strong id="confirmZone">-</strong></p>
+      <p>Produk: <strong id="confirmProduct">-</strong></p>
+      <p>Kaedah Pembayaran: <strong id="confirmPayment">-</strong></p>
+      <p>Jumlah Bayaran:</p>
+      <div class="total" id="confirmPrice">-</div>
+
+      <p>Sila pastikan semua maklumat pesanan adalah betul.</p>
+
+      <button class="pay-button" onclick="bayarSekarang()">
+        BAYAR SEKARANG
+      </button>
+
+    </div>
+
+    <div class="payment-box" id="paymentBox">
+
+      <h3>💳 Pembayaran</h3>
+
+      <p>Kaedah pembayaran:</p>
+      <strong id="paymentMethod">-</strong>
+
+      <div class="payment-amount" id="paymentAmount">
+        RM 0.00
+      </div>
+
+      <div class="payment-note" id="paymentInstruction">
+        Sila tunggu arahan pembayaran.
+      </div>
+
+      <p style="margin-top:20px;">
+        Selepas pembayaran sebenar disediakan, bahagian ini akan
+        memaparkan QR atau maklumat pembayaran GABA STORE.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const userId = document.getElementById("userId");
+const zoneId = document.getElementById("zoneId");
+
+const diamonds = document.querySelectorAll(
+  'input[name="diamond"]'
+);
+
+const payments = document.querySelectorAll(
+  'input[name="payment"]'
+);
+
+const summaryUser =
+  document.getElementById("summaryUser");
+
+const summaryZone =
+  document.getElementById("summaryZone");
+
+const summaryProduct =
+  document.getElementById("summaryProduct");
+
+const summaryPrice =
+  document.getElementById("summaryPrice");
+
+const summaryPayment =
+  document.getElementById("summaryPayment");
+
+function updateSummary() {
+
+  summaryUser.textContent =
+    userId.value || "-";
+
+  summaryZone.textContent =
+    zoneId.value || "-";
+
+  diamonds.forEach(function(diamond) {
+
+    if (diamond.checked) {
+
+      summaryProduct.textContent =
+        diamond.dataset.product;
+
+      summaryPrice.textContent =
+        diamond.dataset.price;
+    }
+
+  });
+
+  payments.forEach(function(payment) {
+
+    if (payment.checked) {
+
+      summaryPayment.textContent =
+        payment.value;
+    }
+
+  });
+}
+
+userId.addEventListener(
+  "input",
+  updateSummary
+);
+
+zoneId.addEventListener(
+  "input",
+  updateSummary
+);
+
+diamonds.forEach(function(diamond) {
+
+  diamond.addEventListener(
+    "change",
+    updateSummary
+  );
+
+});
+
+payments.forEach(function(payment) {
+
+  payment.addEventListener(
+    "change",
+    updateSummary
+  );
+
+});
+
+function buatPesanan() {
+
+  if (userId.value === "") {
+    alert("Sila masukkan User ID.");
+    userId.focus();
+    return;
+  }
+
+  if (zoneId.value === "") {
+    alert("Sila masukkan Zone ID.");
+    zoneId.focus();
+    return;
+  }
+
+  const selectedDiamond =
+    document.querySelector(
+      'input[name="diamond"]:checked'
+    );
+
+  if (!selectedDiamond) {
+    alert("Sila pilih diamond.");
+    return;
+  }
+
+  const selectedPayment =
+    document.querySelector(
+      'input[name="payment"]:checked'
+    );
+
+  if (!selectedPayment) {
+    alert("Sila pilih kaedah pembayaran.");
+    return;
+  }
+
+  document.getElementById(
+    "confirmUser"
+  ).textContent = userId.value;
+
+  document.getElementById(
+    "confirmZone"
+  ).textContent = zoneId.value;
+
+  document.getElementById(
+    "confirmProduct"
+  ).textContent =
+    selectedDiamond.dataset.product;
+
+  document.getElementById(
+    "confirmPayment"
+  ).textContent =
+    selectedPayment.value;
+
+  document.getElementById(
+    "confirmPrice"
+  ).textContent =
+    selectedDiamond.dataset.price;
+
+  document.getElementById(
+    "confirmation"
+  ).style.display = "block";
+
+  document.getElementById(
+    "paymentBox"
+  ).style.display = "none";
+
+  document.getElementById(
+    "confirmation"
+  ).scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+}
+
+function bayarSekarang() {
+
+    const selectedPayment =
+        document.querySelector('input[name="payment"]:checked');
+
+    const selectedDiamond =
+        document.querySelector('input[name="diamond"]:checked');
+
+    if (!selectedPayment || !selectedDiamond) {
+        alert("Sila pilih produk dan kaedah pembayaran.");
+        return;
+    }
+
+    if (selectedPayment.value === "E-Wallet") {
+
+    const orderId =
+        "GAB" + Date.now();
+
+    const orderData = {
+        orderId: orderId,
+        userId: userId.value,
+        zoneId: zoneId.value,
+        product: selectedDiamond.dataset.product,
+        price: selectedDiamond.dataset.price
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbyaoWcTzoadjq9SOu2okKMoJ-ZKriS-gjhf_1O6rt0IZkb8iJg1Myir6mWUQs-WXA/exec", {
+  method: "POST",
+  mode: "no-cors",
+  headers: {
+    "Content-Type": "text/plain"
+  },
+  body: JSON.stringify(orderData)
+})
+.then(function() {
+
+  // Tunggu sekejap supaya data sempat masuk Google Sheet
+  setTimeout(function() {
+
+    window.location.href =
+      "https://payment.tngdigital.com.my/sc/bDLowVOndX";
+
+  }, 1500);
+
+})
+.catch(function(error) {
+
+  console.error("Gagal hantar order:", error);
+
+  alert("Gagal menyimpan pesanan. Sila cuba lagi.");
+
+});
+
+    return;
+  }
+
+    document.getElementById("paymentMethod").textContent =
+        selectedPayment.value;
+
+    document.getElementById("paymentAmount").textContent =
+        selectedDiamond.dataset.price;
+
+    document.getElementById("paymentBox").style.display =
+        "block";
+
+    document.getElementById("paymentBox").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+  }
+</script>
+
+</body>
+  </html>
