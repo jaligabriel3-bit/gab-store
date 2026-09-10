@@ -349,11 +349,30 @@ id="diamondList">
 
 <h3>Ringkasan Order</h3>
 
-<p>User ID: <span id="summaryUser">-</span></p>
-<p>Zone ID: <span id="summaryZone">-</span></p>
-<p>Produk: <span id="summaryProduct">-</span></p>
-<p>Harga: <span id="summaryPrice">-</span></p>
-<p>Pembayaran: <span id="summaryPayment">-</span></p>
+<p>
+User ID:
+<span id="summaryUser">-</span>
+</p>
+
+<p>
+Zone ID:
+<span id="summaryZone">-</span>
+</p>
+
+<p>
+Produk:
+<span id="summaryProduct">-</span>
+</p>
+
+<p>
+Harga:
+<span id="summaryPrice">-</span>
+</p>
+
+<p>
+Pembayaran:
+<span id="summaryPayment">-</span>
+</p>
 
 </div>
 
@@ -420,13 +439,25 @@ id="confirmation">
 
 <h3>✅ Pengesahan Pesanan</h3>
 
-<p>User ID: <strong id="confirmUser">-</strong></p>
+<p>
+User ID:
+<strong id="confirmUser">-</strong>
+</p>
 
-<p>Zone ID: <strong id="confirmZone">-</strong></p>
+<p>
+Zone ID:
+<strong id="confirmZone">-</strong>
+</p>
 
-<p>Produk: <strong id="confirmProduct">-</strong></p>
+<p>
+Produk:
+<strong id="confirmProduct">-</strong>
+</p>
 
-<p>Kaedah Pembayaran: <strong id="confirmPayment">-</strong></p>
+<p>
+Kaedah Pembayaran:
+<strong id="confirmPayment">-</strong>
+</p>
 
 <p>Jumlah Bayaran:</p>
 
@@ -869,17 +900,15 @@ const pilihan = prompt(
 
 "🛠️ APA MASALAH YANG ANDA HADAPI?\n\n"+
 
-"1️⃣ Diamond belum masuk\n"+
+"1️⃣ Diamond belum masuk selepas 24 jam\n"+
 
 "2️⃣ Masalah pembayaran\n"+
 
-"3️⃣ Pesanan bermasalah\n"+
+"3️⃣ Salah User ID / Zone ID\n"+
 
-"4️⃣ Salah User ID / Zone ID\n"+
+"4️⃣ Masalah lain\n\n"+
 
-"5️⃣ Masalah lain\n\n"+
-
-"Taip nombor 1 - 5:"
+"Taip nombor 1 - 4:"
 
 );
 
@@ -889,7 +918,7 @@ let mesej="";
 if(pilihan==="1"){
 
 mesej=
-"Hi GABA STORE, saya menghadapi masalah: Diamond belum masuk.";
+"Hi GABA STORE, Diamond saya masih belum masuk selepas 24 jam.";
 
 }
 
@@ -903,18 +932,11 @@ mesej=
 else if(pilihan==="3"){
 
 mesej=
-"Hi GABA STORE, saya menghadapi masalah dengan pesanan saya.";
-
-}
-
-else if(pilihan==="4"){
-
-mesej=
 "Hi GABA STORE, saya tersalah masukkan User ID / Zone ID.";
 
 }
 
-else if(pilihan==="5"){
+else if(pilihan==="4"){
 
 mesej=
 "Hi GABA STORE, saya mempunyai masalah lain.";
@@ -924,7 +946,7 @@ mesej=
 else{
 
 alert(
-"Sila pilih nombor 1 hingga 5."
+"Sila pilih nombor 1 hingga 4."
 );
 
 return;
