@@ -472,7 +472,6 @@ BUAT PESANAN
 
 </button>
 
-
 <div
 class="confirmation"
 id="confirmation">
@@ -507,7 +506,6 @@ id="confirmPrice">
 -
 </div>
 
-
 <div class="command-box">
 
 <h4>📋 COMMAND TOPUP</h4>
@@ -528,7 +526,6 @@ onclick="copyCommand()">
 
 </div>
 
-
 <p>
 Sila pastikan semua maklumat pesanan adalah betul.
 </p>
@@ -542,7 +539,6 @@ BAYAR SEKARANG
 </button>
 
 </div>
-
 
 <div
 class="payment-box"
@@ -572,28 +568,23 @@ Sila tunggu arahan pembayaran.
 
 </div>
 
-
 <div class="manual-notice">
 
 <h3>⚠️ PEMBAYARAN MANUAL SEMENTARA</h3>
 
 <p>
-
 Sistem pembayaran automatik sedang mengalami
 masalah teknikal. Buat sementara waktu,
 <strong>
 pembayaran perlu dibuat secara manual
 mengikut harga yang tertera pada pricelist.
 </strong>
-
 </p>
 
 <p>
-
 Jika terdapat sebarang masalah atau pertanyaan
 berkaitan pesanan, sila hubungi
 <strong>GABA STORE melalui WhatsApp.</strong>
-
 </p>
 
 <button
@@ -608,7 +599,6 @@ onclick="hubungiWhatsApp()">
 
 </div>
 </div>
-
 
 <script>
 
@@ -631,14 +621,6 @@ const tngURL =
 /* ============================= */
 /* WEBHOOKY */
 /* ============================= */
-
-/*
-PASTE ENDPOINT WEBHOOKY KAU DI SINI
-
-Contoh:
-const webhookyURL =
-"https://api.webhooky.app/xxxxxxxxxxxxxxxx";
-*/
 
 const webhookyURL =
 "https://api.webhooky.app/mpnjg7yricd2rh6r832k069v";
@@ -686,7 +668,6 @@ items:[
 ]
 },
 
-
 mc:{
 title:"Magic Chess: Go Go",
 subtitle:"🇲🇾 Pricelist Malaysia",
@@ -718,7 +699,6 @@ let currentGame="ml";
 
 let currentCommand="";
 
-
 const userId =
 document.getElementById("userId");
 
@@ -737,16 +717,13 @@ function tukarGame(game){
 
 currentGame=game;
 
-
 document.getElementById("gameTitle")
 .textContent=
 games[game].title;
 
-
 document.getElementById("gameSubtitle")
 .textContent=
 games[game].subtitle;
-
 
 document.getElementById("mlButton")
 .classList.toggle(
@@ -754,13 +731,11 @@ document.getElementById("mlButton")
 game==="ml"
 );
 
-
 document.getElementById("mcButton")
 .classList.toggle(
 "active",
 game==="mc"
 );
-
 
 diamondList.innerHTML =
 games[game].items.map(item=>`
@@ -787,14 +762,11 @@ ${item[1]}
 
 `).join("");
 
-
 document.getElementById("confirmation")
 .style.display="none";
 
-
 document.getElementById("paymentBox")
 .style.display="none";
-
 
 updateSummary();
 
@@ -811,33 +783,27 @@ document.getElementById("summaryUser")
 .textContent=
 userId.value||"-";
 
-
 document.getElementById("summaryZone")
 .textContent=
 zoneId.value||"-";
-
 
 const d =
 document.querySelector(
 'input[name="diamond"]:checked'
 );
 
-
 const p =
 document.querySelector(
 'input[name="payment"]:checked'
 );
 
-
 document.getElementById("summaryProduct")
 .textContent=
 d ? d.dataset.product : "-";
 
-
 document.getElementById("summaryPrice")
 .textContent=
 d ? d.dataset.price : "-";
-
 
 document.getElementById("summaryPayment")
 .textContent=
@@ -855,18 +821,15 @@ userId.addEventListener(
 updateSummary
 );
 
-
 zoneId.addEventListener(
 "input",
 updateSummary
 );
 
-
 diamondList.addEventListener(
 "change",
 updateSummary
 );
-
 
 document.querySelectorAll(
 'input[name="payment"]'
@@ -897,19 +860,6 @@ return "";
 
 }
 
-
-/*
-Ambil nombor daripada nama produk.
-
-Contoh:
-
-429 Diamond
-→ 429
-
-140 Diamond
-→ 140
-*/
-
 const diamond =
 d.dataset.product.match(/\d+/);
 
@@ -919,12 +869,10 @@ return "";
 
 }
 
-
 const prefix =
 currentGame==="ml"
 ? "mlbb_my"
 : "mcgg_my";
-
 
 return "/order "+
 prefix+
@@ -934,6 +882,62 @@ diamond[0]+
 userId.value+
 " "+
 zoneId.value;
+
+}
+
+
+/* ============================= */
+/* HANTAR KE WEBHOOKY */
+/* ============================= */
+
+function hantarKeWebhooky(){
+
+if(
+!webhookyURL
+){
+
+console.warn(
+"Webhooky URL belum dimasukkan."
+);
+
+return;
+
+}
+
+fetch(
+webhookyURL,
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":
+"text/plain;charset=UTF-8"
+},
+
+body:
+currentCommand
+
+}
+)
+
+.then(response=>{
+
+console.log(
+"Order dihantar ke Webhooky:",
+response.status
+);
+
+})
+
+.catch(error=>{
+
+console.error(
+"Gagal hantar ke Webhooky:",
+error
+);
+
+});
 
 }
 
@@ -956,7 +960,6 @@ return;
 
 }
 
-
 if(!zoneId.value){
 
 alert(
@@ -969,12 +972,10 @@ return;
 
 }
 
-
 const d =
 document.querySelector(
 'input[name="diamond"]:checked'
 );
-
 
 if(!d){
 
@@ -986,12 +987,10 @@ return;
 
 }
 
-
 const p =
 document.querySelector(
 'input[name="payment"]:checked'
 );
-
 
 if(!p){
 
@@ -1008,7 +1007,6 @@ return;
 
 currentCommand =
 buatCommand();
-
 
 if(!currentCommand){
 
@@ -1027,11 +1025,9 @@ document.getElementById("confirmUser")
 .textContent=
 userId.value;
 
-
 document.getElementById("confirmZone")
 .textContent=
 zoneId.value;
-
 
 document.getElementById("confirmProduct")
 .textContent=
@@ -1039,33 +1035,33 @@ games[currentGame].title+
 " - "+
 d.dataset.product;
 
-
 document.getElementById("confirmPayment")
 .textContent=
 p.value;
 
-
 document.getElementById("confirmPrice")
 .textContent=
 d.dataset.price;
-
-
-/* PAPAR COMMAND */
 
 document.getElementById("commandText")
 .textContent=
 currentCommand;
 
 
+/* ============================= */
+/* HANTAR ORDER TERUS KE WEBHOOKY */
+/* ============================= */
+
+hantarKeWebhooky();
+
+
 document.getElementById("confirmation")
 .style.display=
 "block";
 
-
 document.getElementById("paymentBox")
 .style.display=
 "none";
-
 
 document.getElementById("confirmation")
 .scrollIntoView({
@@ -1092,10 +1088,10 @@ return;
 
 }
 
-
 navigator.clipboard.writeText(
 currentCommand
 )
+
 .then(()=>{
 
 alert(
@@ -1103,12 +1099,8 @@ alert(
 );
 
 })
-.catch(()=>{
 
-/*
-Fallback kalau browser
-tidak benarkan clipboard.
-*/
+.catch(()=>{
 
 const textarea =
 document.createElement("textarea");
@@ -1138,78 +1130,6 @@ alert(
 
 
 /* ============================= */
-/* SEND WEBHOOKY */
-/* ============================= */
-
-function hantarKeWebhooky(){
-
-if(
-!webhookyURL ||
-webhookyURL===
-"MASUKKAN_ENDPOINT_WEBHOOKY_KAU_DI_SINI"
-){
-
-console.warn(
-"Webhooky URL belum dimasukkan."
-);
-
-return;
-
-}
-
-
-const payload = {
-
-title:
-"🛒 GAB STORE - ORDER BARU",
-
-message:
-currentCommand,
-
-vibrate:
-true
-
-};
-
-
-fetch(
-webhookyURL,
-{
-
-method:"POST",
-
-headers:{
-"Content-Type":
-"application/json"
-},
-
-body:
-JSON.stringify(payload)
-
-}
-)
-
-.then(()=>{
-
-console.log(
-"Order dihantar ke Webhooky."
-);
-
-})
-
-.catch(error=>{
-
-console.error(
-"Gagal hantar ke Webhooky:",
-error
-);
-
-});
-
-}
-
-
-/* ============================= */
 /* BAYAR SEKARANG */
 /* ============================= */
 
@@ -1220,12 +1140,10 @@ document.querySelector(
 'input[name="payment"]:checked'
 );
 
-
 const d =
 document.querySelector(
 'input[name="diamond"]:checked'
 );
-
 
 if(!p || !d){
 
@@ -1238,9 +1156,7 @@ return;
 }
 
 
-/* ============================= */
-/* ORDER DATA UNTUK GOOGLE SHEETS */
-/* ============================= */
+/* ORDER DATA */
 
 const orderData = {
 
@@ -1272,14 +1188,7 @@ currentCommand
 
 
 /* ============================= */
-/* HANTAR KE WEBHOOKY */
-/* ============================= */
-
-hantarKeWebhooky();
-
-
-/* ============================= */
-/* E-WALLET */
+/* E-WALLET → GOOGLE SHEETS → TNG */
 /* ============================= */
 
 if(p.value==="E-Wallet"){
@@ -1340,11 +1249,9 @@ document.getElementById("paymentMethod")
 .textContent=
 p.value;
 
-
 document.getElementById("paymentAmount")
 .textContent=
 d.dataset.price;
-
 
 document.getElementById("paymentInstruction")
 .textContent=
@@ -1352,11 +1259,9 @@ document.getElementById("paymentInstruction")
 d.dataset.price+
 " dan hubungi GABA STORE jika diperlukan.";
 
-
 document.getElementById("paymentBox")
 .style.display=
 "block";
-
 
 document.getElementById("paymentBox")
 .scrollIntoView({
@@ -1386,7 +1291,6 @@ prompt(
 "Taip nombor 1 - 4:"
 
 );
-
 
 let mesej="";
 
@@ -1435,7 +1339,6 @@ const whatsappURL =
 whatsappNumber+
 "?text="+
 encodeURIComponent(mesej);
-
 
 window.location.href=
 whatsappURL;
