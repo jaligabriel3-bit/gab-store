@@ -516,6 +516,9 @@ const scriptURL =
 const tngURL =
 "https://payment.tngdigital.com.my/sc/bDLowVOndX";
 
+const makeWebhookURL =
+"https://hook.eu1.make.com/v48nsuwb98i2cp61upuj3x40klkleuva";
+
 const whatsappNumber =
 "601119673523";
 
@@ -775,7 +778,7 @@ document.querySelector(
 'input[name="diamond"]:checked'
 );
 
-if(!p||!d){
+if(!p || !d){
 
 alert(
 "Sila pilih produk dan kaedah pembayaran."
@@ -785,9 +788,7 @@ return;
 
 }
 
-if(p.value==="E-Wallet"){
-
-const orderData={
+const orderData = {
 
 orderId:
 "GAB"+Date.now(),
@@ -805,9 +806,36 @@ product:
 d.dataset.product,
 
 price:
-d.dataset.price
+d.dataset.price,
+
+payment:
+p.value,
+
+status:
+"PENDING"
 
 };
+
+
+/* HANTAR ORDER KE MAKE */
+
+fetch(
+makeWebhookURL,
+{
+method:"POST",
+mode:"no-cors",
+headers:{
+"Content-Type":"text/plain"
+},
+body:
+JSON.stringify(orderData)
+}
+);
+
+
+/* E-WALLET → GOOGLE SHEETS → TNG */
+
+if(p.value==="E-Wallet"){
 
 fetch(
 scriptURL,
@@ -835,7 +863,7 @@ window.location.href=tngURL;
 .catch(error=>{
 
 console.error(
-"Gagal hantar order:",
+"Gagal menyimpan order:",
 error
 );
 
@@ -848,6 +876,9 @@ alert(
 return;
 
 }
+
+
+/* PEMBAYARAN MANUAL */
 
 document.getElementById("paymentMethod")
 .textContent=p.value;
@@ -864,11 +895,7 @@ behavior:"smooth",
 block:"center"
 });
 
-}
-
-
-/* WHATSAPP SUPPORT */
-
+  }
 function hubungiWhatsApp(){
 
 const pilihan = prompt(
@@ -944,4 +971,4 @@ tukarGame("ml");
 </script>
 
 </body>
-  </html>
+</html>
