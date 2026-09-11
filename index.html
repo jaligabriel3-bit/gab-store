@@ -226,6 +226,39 @@ font-size:20px;
 font-weight:bold;
 }
 
+.command-box{
+margin-top:18px;
+padding:15px;
+background:#080812;
+border:1px solid #00eaff;
+border-radius:10px;
+}
+
+.command-box h4{
+margin:0 0 10px;
+color:#00eaff;
+}
+
+.command-text{
+font-family:monospace;
+font-size:14px;
+word-break:break-all;
+line-height:1.6;
+color:white;
+}
+
+.copy-command-button{
+width:100%;
+margin-top:12px;
+padding:12px;
+border:none;
+border-radius:8px;
+background:#00a8c6;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
 .payment-box{
 display:none;
 margin-top:25px;
@@ -376,33 +409,57 @@ id="diamondList">
 <h3>Kaedah Pembayaran</h3>
 
 <label class="payment-option">
-<input type="radio" name="payment" value="QR Payment">
+
+<input
+type="radio"
+name="payment"
+value="QR Payment">
 
 <span class="payment-card">
+
 💳 QR Payment
 <br>
+
 <span>Bayaran melalui QR</span>
+
 </span>
+
 </label>
 
 <label class="payment-option">
-<input type="radio" name="payment" value="Online Banking">
+
+<input
+type="radio"
+name="payment"
+value="Online Banking">
 
 <span class="payment-card">
+
 🏦 Online Banking
 <br>
+
 <span>Bayaran melalui perbankan online</span>
+
 </span>
+
 </label>
 
 <label class="payment-option">
-<input type="radio" name="payment" value="E-Wallet">
+
+<input
+type="radio"
+name="payment"
+value="E-Wallet">
 
 <span class="payment-card">
+
 📱 E-Wallet
 <br>
+
 <span>Bayaran melalui e-wallet</span>
+
 </span>
+
 </label>
 
 </div>
@@ -410,8 +467,11 @@ id="diamondList">
 <button
 class="order-button"
 onclick="buatPesanan()">
+
 BUAT PESANAN
+
 </button>
+
 
 <div
 class="confirmation"
@@ -419,19 +479,23 @@ id="confirmation">
 
 <h3>✅ Pengesahan Pesanan</h3>
 
-<p>User ID:
+<p>
+User ID:
 <strong id="confirmUser">-</strong>
 </p>
 
-<p>Zone ID:
+<p>
+Zone ID:
 <strong id="confirmZone">-</strong>
 </p>
 
-<p>Produk:
+<p>
+Produk:
 <strong id="confirmProduct">-</strong>
 </p>
 
-<p>Kaedah Pembayaran:
+<p>
+Kaedah Pembayaran:
 <strong id="confirmPayment">-</strong>
 </p>
 
@@ -443,6 +507,28 @@ id="confirmPrice">
 -
 </div>
 
+
+<div class="command-box">
+
+<h4>📋 COMMAND TOPUP</h4>
+
+<div
+class="command-text"
+id="commandText">
+-
+</div>
+
+<button
+class="copy-command-button"
+onclick="copyCommand()">
+
+📋 COPY COMMAND
+
+</button>
+
+</div>
+
+
 <p>
 Sila pastikan semua maklumat pesanan adalah betul.
 </p>
@@ -450,10 +536,13 @@ Sila pastikan semua maklumat pesanan adalah betul.
 <button
 class="pay-button"
 onclick="bayarSekarang()">
+
 BAYAR SEKARANG
+
 </button>
 
 </div>
+
 
 <div
 class="payment-box"
@@ -468,38 +557,51 @@ id="paymentBox">
 <div
 class="payment-amount"
 id="paymentAmount">
+
 RM 0.00
+
 </div>
 
 <div
 class="payment-note"
 id="paymentInstruction">
+
 Sila tunggu arahan pembayaran.
+
 </div>
 
 </div>
+
 
 <div class="manual-notice">
 
 <h3>⚠️ PEMBAYARAN MANUAL SEMENTARA</h3>
 
 <p>
+
 Sistem pembayaran automatik sedang mengalami
 masalah teknikal. Buat sementara waktu,
-<strong>pembayaran perlu dibuat secara manual
-mengikut harga yang tertera pada pricelist.</strong>
+<strong>
+pembayaran perlu dibuat secara manual
+mengikut harga yang tertera pada pricelist.
+</strong>
+
 </p>
 
 <p>
+
 Jika terdapat sebarang masalah atau pertanyaan
 berkaitan pesanan, sila hubungi
 <strong>GABA STORE melalui WhatsApp.</strong>
+
 </p>
 
 <button
 class="whatsapp-button"
 onclick="hubungiWhatsApp()">
+
 💬 HUBUNGI GABA STORE
+
 </button>
 
 </div>
@@ -507,21 +609,52 @@ onclick="hubungiWhatsApp()">
 </div>
 </div>
 
+
 <script>
 
-/* APPS SCRIPT VERSI 3 - URL BETUL */
+/* ============================= */
+/* GOOGLE APPS SCRIPT */
+/* ============================= */
+
 const scriptURL =
 "https://script.google.com/macros/s/AKfycbw9sjKCaLh2HCJbBE9y4yY_74fXzjn3yW4xJp8XrIvxrtD73T1upBoc6_WnAkLcenXMig/exec";
+
+
+/* ============================= */
+/* TNG */
+/* ============================= */
 
 const tngURL =
 "https://payment.tngdigital.com.my/sc/bDLowVOndX";
 
-const makeWebhookURL =
-"https://hook.eu1.make.com/4ps7l87vph2w5xpmp9uq49fjr6paz03t";
+
+/* ============================= */
+/* WEBHOOKY */
+/* ============================= */
+
+/*
+PASTE ENDPOINT WEBHOOKY KAU DI SINI
+
+Contoh:
+const webhookyURL =
+"https://api.webhooky.app/xxxxxxxxxxxxxxxx";
+*/
+
+const webhookyURL =
+"https://api.webhooky.app/mpnjg7yricd2rh6r832k069v";
+
+
+/* ============================= */
+/* WHATSAPP */
+/* ============================= */
 
 const whatsappNumber =
 "601119673523";
 
+
+/* ============================= */
+/* GAME DATA */
+/* ============================= */
 
 const games = {
 
@@ -530,6 +663,7 @@ title:"Mobile Legends",
 subtitle:"🇲🇾 Pricelist ID Malaysia",
 
 items:[
+
 ["140 Diamond","RM 11.00"],
 ["284 Diamond","RM 22.00"],
 ["355 Diamond","RM 26.00"],
@@ -548,14 +682,17 @@ items:[
 ["3517 Diamond","RM 240.00"],
 ["4047 Diamond","RM 277.00"],
 ["1X WDP","RM 9.00"]
+
 ]
 },
+
 
 mc:{
 title:"Magic Chess: Go Go",
 subtitle:"🇲🇾 Pricelist Malaysia",
 
 items:[
+
 ["14 Diamond","RM 0.92"],
 ["42 Diamond","RM 2.82"],
 ["55 Diamond","RM 3.96"],
@@ -566,13 +703,21 @@ items:[
 ["284 Diamond","RM 18.62"],
 ["355 Diamond","RM 23.28"],
 ["429 Diamond","RM 27.97"]
+
 ]
 }
 
 };
 
 
+/* ============================= */
+/* VARIABLES */
+/* ============================= */
+
 let currentGame="ml";
+
+let currentCommand="";
+
 
 const userId =
 document.getElementById("userId");
@@ -584,21 +729,38 @@ const diamondList =
 document.getElementById("diamondList");
 
 
+/* ============================= */
+/* TUKAR GAME */
+/* ============================= */
+
 function tukarGame(game){
 
 currentGame=game;
 
+
 document.getElementById("gameTitle")
-.textContent=games[game].title;
+.textContent=
+games[game].title;
+
 
 document.getElementById("gameSubtitle")
-.textContent=games[game].subtitle;
+.textContent=
+games[game].subtitle;
+
 
 document.getElementById("mlButton")
-.classList.toggle("active",game==="ml");
+.classList.toggle(
+"active",
+game==="ml"
+);
+
 
 document.getElementById("mcButton")
-.classList.toggle("active",game==="mc");
+.classList.toggle(
+"active",
+game==="mc"
+);
+
 
 diamondList.innerHTML =
 games[game].items.map(item=>`
@@ -625,89 +787,104 @@ ${item[1]}
 
 `).join("");
 
+
 document.getElementById("confirmation")
 .style.display="none";
 
+
 document.getElementById("paymentBox")
 .style.display="none";
+
 
 updateSummary();
 
 }
 
 
+/* ============================= */
+/* UPDATE SUMMARY */
+/* ============================= */
+
 function updateSummary(){
 
 document.getElementById("summaryUser")
-.textContent=userId.value||"-";
+.textContent=
+userId.value||"-";
+
 
 document.getElementById("summaryZone")
-.textContent=zoneId.value||"-";
+.textContent=
+zoneId.value||"-";
+
 
 const d =
 document.querySelector(
 'input[name="diamond"]:checked'
 );
 
+
 const p =
 document.querySelector(
 'input[name="payment"]:checked'
 );
 
+
 document.getElementById("summaryProduct")
-.textContent=d ? d.dataset.product : "-";
+.textContent=
+d ? d.dataset.product : "-";
+
 
 document.getElementById("summaryPrice")
-.textContent=d ? d.dataset.price : "-";
+.textContent=
+d ? d.dataset.price : "-";
+
 
 document.getElementById("summaryPayment")
-.textContent=p ? p.value : "-";
+.textContent=
+p ? p.value : "-";
 
 }
 
+
+/* ============================= */
+/* INPUT LISTENERS */
+/* ============================= */
 
 userId.addEventListener(
 "input",
 updateSummary
 );
 
+
 zoneId.addEventListener(
 "input",
 updateSummary
 );
+
 
 diamondList.addEventListener(
 "change",
 updateSummary
 );
 
+
 document.querySelectorAll(
 'input[name="payment"]'
 ).forEach(p=>{
+
 p.addEventListener(
 "change",
 updateSummary
 );
+
 });
 
 
-function buatPesanan(){
+/* ============================= */
+/* GENERATE COMMAND */
+/* ============================= */
 
-if(!userId.value){
-
-alert("Sila masukkan User ID.");
-userId.focus();
-return;
-
-}
-
-if(!zoneId.value){
-
-alert("Sila masukkan Zone ID.");
-zoneId.focus();
-return;
-
-}
+function buatCommand(){
 
 const d =
 document.querySelector(
@@ -716,28 +893,145 @@ document.querySelector(
 
 if(!d){
 
-alert("Sila pilih produk.");
+return "";
+
+}
+
+
+/*
+Ambil nombor daripada nama produk.
+
+Contoh:
+
+429 Diamond
+→ 429
+
+140 Diamond
+→ 140
+*/
+
+const diamond =
+d.dataset.product.match(/\d+/);
+
+if(!diamond){
+
+return "";
+
+}
+
+
+const prefix =
+currentGame==="ml"
+? "mlbb_my"
+: "mcgg_my";
+
+
+return "/order "+
+prefix+
+" "+
+diamond[0]+
+" "+
+userId.value+
+" "+
+zoneId.value;
+
+}
+
+
+/* ============================= */
+/* BUAT PESANAN */
+/* ============================= */
+
+function buatPesanan(){
+
+if(!userId.value){
+
+alert(
+"Sila masukkan User ID."
+);
+
+userId.focus();
+
 return;
 
 }
+
+
+if(!zoneId.value){
+
+alert(
+"Sila masukkan Zone ID."
+);
+
+zoneId.focus();
+
+return;
+
+}
+
+
+const d =
+document.querySelector(
+'input[name="diamond"]:checked'
+);
+
+
+if(!d){
+
+alert(
+"Sila pilih produk."
+);
+
+return;
+
+}
+
 
 const p =
 document.querySelector(
 'input[name="payment"]:checked'
 );
 
+
 if(!p){
 
-alert("Sila pilih kaedah pembayaran.");
+alert(
+"Sila pilih kaedah pembayaran."
+);
+
 return;
 
 }
 
+
+/* GENERATE COMMAND */
+
+currentCommand =
+buatCommand();
+
+
+if(!currentCommand){
+
+alert(
+"Command tidak dapat dibuat."
+);
+
+return;
+
+}
+
+
+/* PAPAR PENGESAHAN */
+
 document.getElementById("confirmUser")
-.textContent=userId.value;
+.textContent=
+userId.value;
+
 
 document.getElementById("confirmZone")
-.textContent=zoneId.value;
+.textContent=
+zoneId.value;
+
 
 document.getElementById("confirmProduct")
 .textContent=
@@ -745,17 +1039,33 @@ games[currentGame].title+
 " - "+
 d.dataset.product;
 
+
 document.getElementById("confirmPayment")
-.textContent=p.value;
+.textContent=
+p.value;
+
 
 document.getElementById("confirmPrice")
-.textContent=d.dataset.price;
+.textContent=
+d.dataset.price;
+
+
+/* PAPAR COMMAND */
+
+document.getElementById("commandText")
+.textContent=
+currentCommand;
+
 
 document.getElementById("confirmation")
-.style.display="block";
+.style.display=
+"block";
+
 
 document.getElementById("paymentBox")
-.style.display="none";
+.style.display=
+"none";
+
 
 document.getElementById("confirmation")
 .scrollIntoView({
@@ -766,6 +1076,143 @@ block:"center"
 }
 
 
+/* ============================= */
+/* COPY COMMAND */
+/* ============================= */
+
+function copyCommand(){
+
+if(!currentCommand){
+
+alert(
+"Tiada command untuk dicopy."
+);
+
+return;
+
+}
+
+
+navigator.clipboard.writeText(
+currentCommand
+)
+.then(()=>{
+
+alert(
+"✅ Command berjaya dicopy!"
+);
+
+})
+.catch(()=>{
+
+/*
+Fallback kalau browser
+tidak benarkan clipboard.
+*/
+
+const textarea =
+document.createElement("textarea");
+
+textarea.value=
+currentCommand;
+
+document.body.appendChild(
+textarea
+);
+
+textarea.select();
+
+document.execCommand(
+"copy"
+);
+
+textarea.remove();
+
+alert(
+"✅ Command berjaya dicopy!"
+);
+
+});
+
+}
+
+
+/* ============================= */
+/* SEND WEBHOOKY */
+/* ============================= */
+
+function hantarKeWebhooky(){
+
+if(
+!webhookyURL ||
+webhookyURL===
+"MASUKKAN_ENDPOINT_WEBHOOKY_KAU_DI_SINI"
+){
+
+console.warn(
+"Webhooky URL belum dimasukkan."
+);
+
+return;
+
+}
+
+
+const payload = {
+
+title:
+"🛒 GAB STORE - ORDER BARU",
+
+message:
+currentCommand,
+
+vibrate:
+true
+
+};
+
+
+fetch(
+webhookyURL,
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":
+"application/json"
+},
+
+body:
+JSON.stringify(payload)
+
+}
+)
+
+.then(()=>{
+
+console.log(
+"Order dihantar ke Webhooky."
+);
+
+})
+
+.catch(error=>{
+
+console.error(
+"Gagal hantar ke Webhooky:",
+error
+);
+
+});
+
+}
+
+
+/* ============================= */
+/* BAYAR SEKARANG */
+/* ============================= */
+
 function bayarSekarang(){
 
 const p =
@@ -773,10 +1220,12 @@ document.querySelector(
 'input[name="payment"]:checked'
 );
 
+
 const d =
 document.querySelector(
 'input[name="diamond"]:checked'
 );
+
 
 if(!p || !d){
 
@@ -787,6 +1236,11 @@ alert(
 return;
 
 }
+
+
+/* ============================= */
+/* ORDER DATA UNTUK GOOGLE SHEETS */
+/* ============================= */
 
 const orderData = {
 
@@ -811,42 +1265,41 @@ d.dataset.price,
 payment:
 p.value,
 
-status:
-"PENDING"
+command:
+currentCommand
 
 };
 
 
-/* HANTAR ORDER KE MAKE */
+/* ============================= */
+/* HANTAR KE WEBHOOKY */
+/* ============================= */
 
-fetch(
-makeWebhookURL,
-{
-method:"POST",
-mode:"no-cors",
-headers:{
-"Content-Type":"text/plain"
-},
-body:
-JSON.stringify(orderData)
-}
-);
+hantarKeWebhooky();
 
 
-/* E-WALLET → GOOGLE SHEETS → TNG */
+/* ============================= */
+/* E-WALLET */
+/* ============================= */
 
 if(p.value==="E-Wallet"){
 
 fetch(
 scriptURL,
 {
+
 method:"POST",
+
 mode:"no-cors",
+
 headers:{
-"Content-Type":"text/plain"
+"Content-Type":
+"text/plain"
 },
+
 body:
 JSON.stringify(orderData)
+
 }
 )
 
@@ -854,7 +1307,8 @@ JSON.stringify(orderData)
 
 setTimeout(()=>{
 
-window.location.href=tngURL;
+window.location.href=
+tngURL;
 
 },1500);
 
@@ -878,16 +1332,31 @@ return;
 }
 
 
+/* ============================= */
 /* PEMBAYARAN MANUAL */
+/* ============================= */
 
 document.getElementById("paymentMethod")
-.textContent=p.value;
+.textContent=
+p.value;
+
 
 document.getElementById("paymentAmount")
-.textContent=d.dataset.price;
+.textContent=
+d.dataset.price;
+
+
+document.getElementById("paymentInstruction")
+.textContent=
+"Sila buat pembayaran sebanyak "+
+d.dataset.price+
+" dan hubungi GABA STORE jika diperlukan.";
+
 
 document.getElementById("paymentBox")
-.style.display="block";
+.style.display=
+"block";
+
 
 document.getElementById("paymentBox")
 .scrollIntoView({
@@ -895,10 +1364,17 @@ behavior:"smooth",
 block:"center"
 });
 
-  }
+}
+
+
+/* ============================= */
+/* WHATSAPP */
+/* ============================= */
+
 function hubungiWhatsApp(){
 
-const pilihan = prompt(
+const pilihan =
+prompt(
 
 "🛠️ APA MASALAH YANG ANDA HADAPI?\n\n"+
 
@@ -910,6 +1386,7 @@ const pilihan = prompt(
 "Taip nombor 1 - 4:"
 
 );
+
 
 let mesej="";
 
@@ -960,11 +1437,15 @@ whatsappNumber+
 encodeURIComponent(mesej);
 
 
-window.location.href =
+window.location.href=
 whatsappURL;
 
 }
 
+
+/* ============================= */
+/* MULA */
+/* ============================= */
 
 tukarGame("ml");
 
